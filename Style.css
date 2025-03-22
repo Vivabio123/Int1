@@ -1,0 +1,85 @@
+/* Stile del pannello filtri */
+.filter-panel {
+    background: rgba(0, 0, 0, 0.75); /* Sfondo semi-trasparente */
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    width: 180px;
+}
+
+/* Titolo del pannello */
+.filter-panel h3 {
+    margin-top: 0;
+    font-size: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Tabella dei filtri */
+.filter-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Stile delle celle */
+.filter-table td {
+    padding: 8px;
+    font-size: 15px;
+}
+
+/* Stile dei checkbox */
+.filter-panel input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #ffcc00; /* Colore personalizzato per i checkbox */
+    cursor: pointer;
+}
+
+/* Effetto hover sulle righe */
+.filter-table tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.filter-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.filter-btn img {
+    width: 32px;
+    height: 32px;
+}
+
+.filter-content {
+    display: none; /* Nasconde il pannello inizialmente */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.filter-table {
+    width: 100%;
+}
+
+.filter-table tr td {
+    padding: 5px;
+}
+
+.filter-table label {
+    cursor: pointer;
+}
+
+#search-input {
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+

@@ -2,22 +2,24 @@ var map = L.map('map', {
     minZoom: -1,
     maxZoom: 4,
     crs: L.CRS.Simple,
-    zoomAnimation: true,        // 🔥 Attiva l'animazione dello zoom
-    zoomAnimationThreshold: 4   // 🔥 Rende lo zoom più fluido
+    zoomAnimation: true,
+    zoomAnimationThreshold: 4
 });
 
 var w = 3840, h = 3840;
 var imageBounds = [[0, 0], [h, w]];
 
-L.imageOverlay('Mappa DND1.jpg', imageBounds).addTo(map);
+// === 🔄 SWITCH TRA MAPPA NORMALE E MAPPA POLITICA ===
+var currentMap = 'normal';
+var normalMap = L.imageOverlay('Mappa DND1.jpg', imageBounds);
+var politicalMap = L.imageOverlay('Mappa DND2.jpg', imageBounds);
+
+normalMap.addTo(map); // Imposta la mappa normale come predefinita
 map.setMaxBounds(imageBounds);
 map.fitBounds(imageBounds);
 
-// 🔥 Migliora lo zoom con passaggi più piccoli
 map.options.zoomSnap = 0.0001;
 map.options.zoomDelta = 0.0001;
-
-// 🔥 Rende lo zoom con la rotella più fluido e centrato
 map.scrollWheelZoom = 'center';
 
 // Creazione di icone personalizzate per i marker
@@ -56,12 +58,10 @@ var citta = L.layerGroup([
     L.marker([2174, 1887], { icon: cittaIcon }).bindPopup("Eldratia")
 ]);
 
-// Mostriamo di default tutti i marker
 personaggi.addTo(map);
 luoghiDiInteresse.addTo(map);
 citta.addTo(map);
 
-// Funzione per aggiornare la visibilità dei marker
 function updateLayers() {
     if (document.getElementById('toggle-personaggi').checked) {
         map.addLayer(personaggi);
@@ -82,13 +82,11 @@ function updateLayers() {
     }
 }
 
-// Aggiungere il pannello di ricerca
+// Pannello di ricerca
 var searchTool = L.control({ position: 'topright' });
 searchTool.onAdd = function(map) {
     var div = L.DomUtil.create('div', 'search-tool');
-    div.innerHTML = `
-        <input type="text" id="search-input" placeholder="Cerca..." />
-    `;
+    div.innerHTML = `<input type="text" id="search-input" placeholder="Cerca..." />`;
     return div;
 };
 searchTool.addTo(map);
@@ -100,13 +98,13 @@ document.getElementById('search-input').addEventListener('keyup', function() {
     allMarkers.forEach(function(marker) {
         var markerName = marker.getPopup().getContent().toLowerCase();
         if (markerName.includes(query)) {
-            map.setView(marker.getLatLng(), 5); // Centra la mappa sul marker
-            marker.openPopup(); // Apre il popup del marker
+            map.setView(marker.getLatLng(), 5);
+            marker.openPopup();
         }
     });
 });
 
-// Creazione del pannello filtri con freccetta a destra
+// Pannello filtri
 var filterPanel = L.control({ position: 'topright' });
 filterPanel.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'filter-panel-container');
@@ -136,44 +134,72 @@ filterPanel.onAdd = function (map) {
 };
 filterPanel.addTo(map);
 
-// Mostra/Nasconde il pannello filtri con cambio freccetta
 document.addEventListener('DOMContentLoaded', function () {
+    // Switch mappa
+    const toggle = document.getElementById('mapToggle');
+    if (toggle) {
+        toggle.addEventListener('change', function () {
+            if (this.checked) {
+                map.removeLayer(normalMap);
+                politicalMap.addTo(map);
+            } else {
+                map.removeLayer(politicalMap);
+                normalMap.addTo(map);
+            }
+        });
+    }
+
+    // Filtri
     const toggleBtn = document.getElementById('toggle-filter');
     const filterContent = document.getElementById('filter-content');
 
-    toggleBtn.addEventListener('click', function () {
-        if (filterContent.style.display === 'none') {
-            filterContent.style.display = 'block';
-            toggleBtn.textContent = '▶';
-        } else {
-            filterContent.style.display = 'none';
-            toggleBtn.textContent = '◀';
-        }
+    if (toggleBtn && filterContent) {
+        toggleBtn.addEventListener('click', function () {
+            if (filterContent.style.display === 'none') {
+                filterContent.style.display = 'block';
+                toggleBtn.textContent = '▶';
+            } else {
+                filterContent.style.display = 'none';
+                toggleBtn.textContent = '◀';
+            }
+        });
+    }
+
+    document.getElementById('select-all').addEventListener('click', function() {
+        document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(function(checkbox) {
+            checkbox.checked = true;
+        });
+        updateLayers();
     });
-});
 
-
-// Seleziona/Deseleziona tutti i filtri
-document.getElementById('select-all').addEventListener('click', function() {
-    document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(function(checkbox) {
-        checkbox.checked = true;
+    document.getElementById('deselect-all').addEventListener('click', function() {
+        document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+        updateLayers();
     });
-    updateLayers();
-});
 
-document.getElementById('deselect-all').addEventListener('click', function() {
-    document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(function(checkbox) {
-        checkbox.checked = false;
-    });
-    updateLayers();
+    document.getElementById('toggle-personaggi').addEventListener('change', updateLayers);
+    document.getElementById('toggle-luoghi').addEventListener('change', updateLayers);
+    document.getElementById('toggle-citta').addEventListener('change', updateLayers);
 });
-
-// Aggiorna i layer quando i checkbox cambiano
-document.getElementById('toggle-personaggi').addEventListener('change', updateLayers);
-document.getElementById('toggle-luoghi').addEventListener('change', updateLayers);
-document.getElementById('toggle-citta').addEventListener('change', updateLayers);
 
 map.on('click', function(e) {
     L.marker(e.latlng).addTo(map)
       .bindPopup(`Coordinate: ${e.latlng.lat}, ${e.latlng.lng}`).openPopup();
 });
+
+// === Pannello dello switch mappa (in basso a sinistra) ===
+var switchControl = L.control({ position: 'bottomleft' });
+switchControl.onAdd = function(map) {
+    var div = L.DomUtil.create('div', 'map-switch');
+    div.innerHTML = `
+        <label class="switch">
+            <input type="checkbox" id="mapToggle">
+            <span class="slider"></span>
+        </label>
+        <span class="map-label">Switch Map</span>
+    `;
+    return div;
+};
+switchControl.addTo(map);

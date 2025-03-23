@@ -1,6 +1,6 @@
 var map = L.map('map', {
     minZoom: -1,
-    maxZoom: 10,
+    maxZoom: 4,
     crs: L.CRS.Simple,
     zoomAnimation: true,        // 🔥 Attiva l'animazione dello zoom
     zoomAnimationThreshold: 4   // 🔥 Rende lo zoom più fluido
@@ -22,22 +22,22 @@ map.scrollWheelZoom = 'center';
 
 // Creazione di icone personalizzate per i marker
 var personaggioIcon = L.icon({
-    iconUrl: 'personaggio.png',
-    iconSize: [27, 27],
+    iconUrl: 'personaggio.svg',
+    iconSize: [35, 35],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
 });
 
 var luogoIcon = L.icon({
-    iconUrl: 'puntint.png',
-    iconSize: [27, 27],
+    iconUrl: 'Luoghi Sconosciuti.svg',
+    iconSize: [35, 35],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
 });
 
 var cittaIcon = L.icon({
-    iconUrl: 'castell.png',
-    iconSize: [27, 27],
+    iconUrl: 'castell.svg',
+    iconSize: [35, 35],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32]
 });
@@ -124,7 +124,7 @@ filterPanel.onAdd = function (map) {
                     <td><input type="checkbox" id="toggle-personaggi" checked></td>
                 </tr>
                 <tr>
-                    <td><label for="toggle-luoghi">Luoghi di Interesse</label></td>
+                    <td><label for="toggle-luoghi">Luoghi Sconosciuti</label></td>
                     <td><input type="checkbox" id="toggle-luoghi" checked></td>
                 </tr>
                 <tr>

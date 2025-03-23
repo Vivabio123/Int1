@@ -106,15 +106,13 @@ document.getElementById('search-input').addEventListener('keyup', function() {
     });
 });
 
-// Creazione del pannello filtri a scomparsa
+// Creazione del pannello filtri con freccetta a destra
 var filterPanel = L.control({ position: 'topright' });
 filterPanel.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'filter-panel');
+    var div = L.DomUtil.create('div', 'filter-panel-container');
     div.innerHTML = `
-        <button id="toggle-filter" class="filter-btn">
-            <img src="filter.icon.png" alt="Filtri" />
-        </button>
-        <div id="filter-content" class="filter-content">
+        <button id="toggle-filter" class="filter-arrow">◀</button>
+        <div id="filter-content" class="filter-content" style="display: none;">
             <h3>Filtri</h3>
             <button id="select-all">Seleziona Tutti</button>
             <button id="deselect-all">Deseleziona Tutti</button>
@@ -138,15 +136,22 @@ filterPanel.onAdd = function (map) {
 };
 filterPanel.addTo(map);
 
-// Mostra/Nascondi il pannello filtri
-document.getElementById('toggle-filter').addEventListener('click', function() {
-    var content = document.getElementById('filter-content');
-    if (content.style.display === 'none' || !content.style.display) {
-        content.style.display = 'block';
-    } else {
-        content.style.display = 'none';
-    }
+// Mostra/Nasconde il pannello filtri con cambio freccetta
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleBtn = document.getElementById('toggle-filter');
+    const filterContent = document.getElementById('filter-content');
+
+    toggleBtn.addEventListener('click', function () {
+        if (filterContent.style.display === 'none') {
+            filterContent.style.display = 'block';
+            toggleBtn.textContent = '▶';
+        } else {
+            filterContent.style.display = 'none';
+            toggleBtn.textContent = '◀';
+        }
+    });
 });
+
 
 // Seleziona/Deseleziona tutti i filtri
 document.getElementById('select-all').addEventListener('click', function() {

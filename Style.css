@@ -83,3 +83,32 @@
     border: 1px solid #ccc;
 }
 
+.filter-panel-container {
+    position: relative;
+    width: 220px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.filter-arrow {
+    position: fixed;
+    top: 20px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 8px 12px;
+    border-radius: 10px 0 0 10px;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.filter-arrow:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.filter-content {
+    margin-top: 50px; /* distanza sotto la freccetta */
+}

@@ -14,8 +14,8 @@ map.setMaxBounds(imageBounds);
 map.fitBounds(imageBounds);
 
 // 🔥 Migliora lo zoom con passaggi più piccoli
-map.options.zoomSnap = 0.01;
-map.options.zoomDelta = 0.01;
+map.options.zoomSnap = 0.0001;
+map.options.zoomDelta = 0.0001;
 
 // 🔥 Rende lo zoom con la rotella più fluido e centrato
 map.scrollWheelZoom = 'center';
@@ -44,17 +44,16 @@ var cittaIcon = L.icon({
 
 // Gruppi di marker
 var personaggi = L.layerGroup([
-    L.marker([876, 1730], { icon: personaggioIcon }).bindPopup("Boss del Poppin"),
-    L.marker([1358.125, 1390.875], { icon: personaggioIcon }).bindPopup("Storico Snitch")
+    L.marker([2024, 1602], { icon: personaggioIcon }).bindPopup("Storico Snitch")
 ]);
 
 var luoghiDiInteresse = L.layerGroup([
-    L.marker([1384.5, 1540.5], { icon: luogoIcon }).bindPopup("Isola Verde")
+    L.marker([2044, 1734], { icon: luogoIcon }).bindPopup("Isola Verde")
 ]);
 
 var citta = L.layerGroup([
-    L.marker([1321, 1415], { icon: cittaIcon }).bindPopup("Dravoria"),
-    L.marker([1527.375, 1717.375], { icon: cittaIcon }).bindPopup("Eldratia")
+    L.marker([2000, 1623], { icon: cittaIcon }).bindPopup("Dravoria"),
+    L.marker([2174, 1887], { icon: cittaIcon }).bindPopup("Eldratia")
 ]);
 
 // Mostriamo di default tutti i marker
@@ -168,3 +167,8 @@ document.getElementById('deselect-all').addEventListener('click', function() {
 document.getElementById('toggle-personaggi').addEventListener('change', updateLayers);
 document.getElementById('toggle-luoghi').addEventListener('change', updateLayers);
 document.getElementById('toggle-citta').addEventListener('change', updateLayers);
+
+map.on('click', function(e) {
+    L.marker(e.latlng).addTo(map)
+      .bindPopup(`Coordinate: ${e.latlng.lat}, ${e.latlng.lng}`).openPopup();
+});

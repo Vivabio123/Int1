@@ -112,8 +112,8 @@ filterPanel.onAdd = function (map) {
         <button id="toggle-filter" class="filter-arrow">◀</button>
         <div id="filter-content" class="filter-content" style="display: none;">
             <h3>Filtri</h3>
-            <button id="select-all">Seleziona Tutti</button>
-            <button id="deselect-all">Deseleziona Tutti</button>
+            <button id="select-all">Mostra Tutti</button>
+            <button id="deselect-all">Nascondi Tutti</button>
             <table class="filter-table">
                 <tr>
                     <td><label for="toggle-personaggi">Personaggi</label></td>

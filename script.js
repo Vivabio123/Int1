@@ -86,7 +86,7 @@ function updateLayers() {
 var searchTool = L.control({ position: 'topright' });
 searchTool.onAdd = function(map) {
     var div = L.DomUtil.create('div', 'search-tool');
-    div.innerHTML = `<input type="text" id="search-input" placeholder="Cerca..." />`;
+    div.innerHTML = `<input type="text" id="search-input" placeholder="Cerca Marker..." />`;
     return div;
 };
 searchTool.addTo(map);

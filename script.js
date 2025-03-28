@@ -1,5 +1,5 @@
 var map = L.map('map', {
-    minZoom: -1,
+    minZoom: -3,
     maxZoom: 4,
     crs: L.CRS.Simple,
     zoomAnimation: true,

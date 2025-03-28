@@ -46,7 +46,7 @@ var cittaIcon = L.icon({
 
 // Gruppi di marker
 var personaggi = L.layerGroup([
-    L.marker([2024, 1602], { icon: personaggioIcon }).bindPopup("Storico Snitch")
+    L.marker([2017.3, 1612.9], { icon: personaggioIcon }).bindPopup("Storico Snitch")
 ]);
 
 var luoghiDiInteresse = L.layerGroup([
@@ -54,8 +54,8 @@ var luoghiDiInteresse = L.layerGroup([
 ]);
 
 var citta = L.layerGroup([
-    L.marker([2000, 1623], { icon: cittaIcon }).bindPopup("Dravoria"),
-    L.marker([2174, 1887], { icon: cittaIcon }).bindPopup("Eldratia")
+    L.marker([1979.15, 1631.7], { icon: cittaIcon }).bindPopup("Dravoria"),
+    L.marker([2183.4, 1892.4], { icon: cittaIcon }).bindPopup("Eldratia")
 ]);
 
 personaggi.addTo(map);
@@ -184,10 +184,11 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('toggle-citta').addEventListener('change', updateLayers);
 });
 
-map.on('click', function(e) {
-    L.marker(e.latlng).addTo(map)
-      .bindPopup(`Coordinate: ${e.latlng.lat}, ${e.latlng.lng}`).openPopup();
-});
+
+
+// inserire qui comando per mettere coordinate
+
+
 
 // === Pannello dello switch mappa (in basso a sinistra) ===
 var switchControl = L.control({ position: 'bottomleft' });

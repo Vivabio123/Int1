@@ -169,16 +169,16 @@ input:checked + .slider:before {
     }
 
     .filter-panel-container {
-        width: 80%;
+        width: 100%;
         position: relative;
         display: block;
-        max-width: 80%; /* Ottimizzare la larghezza del pannello dei filtri */
+        max-width: 100%; /* Ottimizzare la larghezza del pannello dei filtri */
         margin-top: 25px; /* Distanza dal top */
     }
 
     .filter-panel {
-        width: 100px; /* Diminuita la larghezza del pannello */
-        font-size: 10px; /* Diminuito la dimensione del testo per adattarsi meglio */
+        width: 60px; /* Diminuita la larghezza del pannello */
+        font-size: 6px; /* Diminuito la dimensione del testo per adattarsi meglio */
     }
 
     /* Spostare la freccetta dei filtri sotto la barra di ricerca */

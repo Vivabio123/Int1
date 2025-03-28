@@ -198,7 +198,7 @@ input:checked + .slider:before {
 
     /* Barra di ricerca spostata a destra */
     .search-tool {
-        position: fixed;
+        position: absolute;
         top: 3px;
         right: 0px;
         z-index: 9999;

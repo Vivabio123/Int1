@@ -9,9 +9,8 @@ var map = L.map('map', {
 var w = 3840, h = 3840;
 var imageBounds = [[0, 0], [h, w]];
 
-// Impostare lo zoom iniziale per il telefono
 if (window.innerWidth <= 768) {
-    map.setView([h / 2, w / 2], 0);  // Zoom più lontano su dispositivi mobili
+    map.setView([h / 2, w / 2], 1);  // Zoom più lontano 
 } else {
     map.setView([h / 2, w / 2], 2);  // Zoom normale su desktop
 }

@@ -199,8 +199,8 @@ input:checked + .slider:before {
     /* Barra di ricerca spostata a destra */
     .search-tool {
         position: fixed;
-        top: 10px;
-        right: 3px;
+        top: 3px;
+        right: 0px;
         z-index: 9999;
         width: auto; /* Adattare la larghezza per la versione mobile */
     }

@@ -112,6 +112,100 @@ document.getElementById('search-input').addEventListener('keyup', function() {
     });
 });
 
+// Pannello filtri
+var filterPanel = L.control({ position: 'topright' });
+filterPanel.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'filter-panel-container');
+    div.innerHTML = `
+        <button id="toggle-filter" class="filter-arrow">◀</button>
+        <div id="filter-content" class="filter-content" style="display: none;">
+            <h3 style="color: white;">Filtri</h3> <!-- Forza il colore bianco -->
+            <button id="select-all">Mostra Tutti</button>
+            <button id="deselect-all">Nascondi Tutti</button>
+            <table class="filter-table">
+                <tr>
+                    <td><label for="toggle-personaggi">Personaggi</label></td>
+                    <td><input type="checkbox" id="toggle-personaggi" checked></td>
+                </tr>
+                <tr>
+                    <td><label for="toggle-luoghi">Luoghi Sconosciuti</label></td>
+                    <td><input type="checkbox" id="toggle-luoghi" checked></td>
+                </tr>
+                <tr>
+                    <td><label for="toggle-citta">Città</label></td>
+                    <td><input type="checkbox" id="toggle-citta" checked></td>
+                </tr>
+            </table>
+        </div>
+    `;
+
+    // Forza il colore del titolo "Filtri" a bianco tramite JavaScript
+    var filterTitle = div.querySelector('h3');
+    if (filterTitle) {
+        filterTitle.style.color = 'white'; // Modifica del colore
+    }
+
+    return div;
+};
+filterPanel.addTo(map);
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Switch mappa
+    const toggle = document.getElementById('mapToggle');
+    if (toggle) {
+        toggle.addEventListener('change', function () {
+            if (this.checked) {
+                map.removeLayer(normalMap);
+                politicalMap.addTo(map);
+            } else {
+                map.removeLayer(politicalMap);
+                normalMap.addTo(map);
+            }
+        });
+    }
+
+    // Filtri
+    const toggleBtn = document.getElementById('toggle-filter');
+    const filterContent = document.getElementById('filter-content');
+
+    if (toggleBtn && filterContent) {
+        toggleBtn.addEventListener('click', function () {
+            if (filterContent.style.display === 'none') {
+                filterContent.style.display = 'block';
+                toggleBtn.textContent = '▶';
+            } else {
+                filterContent.style.display = 'none';
+                toggleBtn.textContent = '◀';
+            }
+        });
+    }
+
+    document.getElementById('select-all').addEventListener('click', function() {
+        document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(function(checkbox) {
+            checkbox.checked = true;
+        });
+        updateLayers();
+    });
+
+    document.getElementById('deselect-all').addEventListener('click', function() {
+        document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+        updateLayers();
+    });
+
+    document.getElementById('toggle-personaggi').addEventListener('change', updateLayers);
+    document.getElementById('toggle-luoghi').addEventListener('change', updateLayers);
+    document.getElementById('toggle-citta').addEventListener('change', updateLayers);
+});
+
+
+
+// inserire qui comando per mettere coordinate
+
+
+
+
 // === Pannello dello switch mappa (in basso a sinistra) ===
 var switchControl = L.control({ position: 'bottomleft' });
 switchControl.onAdd = function(map) {

@@ -177,14 +177,14 @@ input:checked + .slider:before {
     }
 
     .filter-panel {
-        width: 140px; /* Diminuita la larghezza del pannello */
-        font-size: 14px; /* Diminuito la dimensione del testo per adattarsi meglio */
+        width: 100px; /* Diminuita la larghezza del pannello */
+        font-size: 10px; /* Diminuito la dimensione del testo per adattarsi meglio */
     }
 
     /* Spostare la freccetta dei filtri sotto la barra di ricerca */
     .filter-arrow {
         position: fixed;
-        top: 120px; /* Distanza dal top */
+        top: 65px; /* Distanza dal top */
         right: 0;
         background: rgba(0, 0, 0, 0.7);
         border: none;
@@ -199,8 +199,8 @@ input:checked + .slider:before {
     /* Barra di ricerca spostata a destra */
     .search-tool {
         position: fixed;
-        top: 20px;
-        right: 20px;
+        top: 10px;
+        right: 3px;
         z-index: 9999;
         width: auto; /* Adattare la larghezza per la versione mobile */
     }

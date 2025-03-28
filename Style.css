@@ -152,7 +152,7 @@ input:checked + .slider:before {
     transform: translateX(14px); /* ← Calcolato per il nuovo width */
 }
 
-/* Media Query per dispositivi con schermo più piccolo */
+/* Esempio di Media Query per dispositivi con schermo più piccolo */
 @media (max-width: 768px) {
     body {
         font-size: 14px;
@@ -163,31 +163,53 @@ input:checked + .slider:before {
         height: 60vh; /* Riduci l'altezza della mappa per adattarsi a schermi più piccoli */
     }
 
+    /* Ridurre lo zoom per la mappa su dispositivi mobili */
+    #map {
+        height: 60vh;
+    }
+
     .filter-panel-container {
         width: 100%;
         position: relative;
         display: block;
+        max-width: 100%; /* Ottimizzare la larghezza del pannello dei filtri */
+        margin-top: 10px; /* Distanza dal top */
     }
 
-    /* Ridurre la larghezza e il padding del pannello dei filtri sui dispositivi mobili */
     .filter-panel {
-        width: 150px;  /* Ridotto per mobile */
-        padding: 10px; /* Ridotto per mobile */
+        width: 140px; /* Diminuita la larghezza del pannello */
+        font-size: 14px; /* Diminuito la dimensione del testo per adattarsi meglio */
     }
 
-    /* Ridurre il campo di ricerca sui dispositivi mobili */
-    #search-input {
-        width: 80%;  /* Ridotto per mobile */
-        margin-top: 5px;  /* Spazio ridotto */
-    }
-
+    /* Spostare la freccetta dei filtri sotto la barra di ricerca */
     .filter-arrow {
-        top: 10px;
-        right: 5px;
-        padding: 5px 8px;
-        font-size: 18px;  /* Ridotto */
+        position: fixed;
+        top: 120px; /* Distanza dal top */
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        border: none;
+        color: white;
+        font-size: 20px;
+        padding: 8px 12px;
+        border-radius: 10px 0 0 10px;
+        cursor: pointer;
+        z-index: 9999;
     }
 
+    /* Barra di ricerca spostata a destra */
+    .search-tool {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        width: auto; /* Adattare la larghezza per la versione mobile */
+    }
+
+    #search-input {
+        width: 200px; /* Diminuita la larghezza della barra di ricerca */
+    }
+
+    /* Ridurre il layout della barra di ricerca su dispositivi mobili */
     .map-switch {
         position: absolute;
         bottom: 10px;

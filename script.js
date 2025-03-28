@@ -1,5 +1,5 @@
 var map = L.map('map', {
-    minZoom: -1.7,
+    minZoom: -1,
     maxZoom: 4,
     crs: L.CRS.Simple,
     zoomAnimation: true,
@@ -8,6 +8,13 @@ var map = L.map('map', {
 
 var w = 3840, h = 3840;
 var imageBounds = [[0, 0], [h, w]];
+
+// === Imposta lo zoom iniziale in base al dispositivo ===
+if (window.innerWidth <= 768) { // Dispositivi mobili
+    map.setView([2000, 1500], 2); // Zoom inferiore
+} else {
+    map.setView([2000, 1500], 3); // Zoom maggiore per desktop
+}
 
 // === 🔄 SWITCH TRA MAPPA NORMALE E MAPPA POLITICA ===
 var currentMap = 'normal';
@@ -130,11 +137,10 @@ filterPanel.onAdd = function (map) {
             </table>
         </div>
     `;
-
-    // Forza il colore del titolo "Filtri" a bianco tramite JavaScript
-    var filterTitle = div.querySelector('h3');
-    if (filterTitle) {
-        filterTitle.style.color = 'white'; // Modifica del colore
+    
+    // Se dispositivo mobile, riduci le dimensioni del pannello filtri
+    if (window.innerWidth <= 768) {
+        div.classList.add('mobile-filter'); // Aggiunge una classe per ridurre la dimensione
     }
 
     return div;
@@ -190,12 +196,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('toggle-luoghi').addEventListener('change', updateLayers);
     document.getElementById('toggle-citta').addEventListener('change', updateLayers);
 });
-
-
-
-// inserire qui comando per mettere coordinate
-
-
 
 // === Pannello dello switch mappa (in basso a sinistra) ===
 var switchControl = L.control({ position: 'bottomleft' });

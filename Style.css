@@ -79,7 +79,6 @@
     z-index: 9999;
 }
 
-
 .filter-content {
     margin-top: 50px;
 }
@@ -153,7 +152,7 @@ input:checked + .slider:before {
     transform: translateX(14px); /* ← Calcolato per il nuovo width */
 }
 
-/* Esempio di Media Query per dispositivi con schermo più piccolo */
+/* Media Query per dispositivi con schermo più piccolo */
 @media (max-width: 768px) {
     body {
         font-size: 14px;
@@ -170,6 +169,25 @@ input:checked + .slider:before {
         display: block;
     }
 
+    /* Ridurre la larghezza e il padding del pannello dei filtri sui dispositivi mobili */
+    .filter-panel {
+        width: 150px;  /* Ridotto per mobile */
+        padding: 10px; /* Ridotto per mobile */
+    }
+
+    /* Ridurre il campo di ricerca sui dispositivi mobili */
+    #search-input {
+        width: 80%;  /* Ridotto per mobile */
+        margin-top: 5px;  /* Spazio ridotto */
+    }
+
+    .filter-arrow {
+        top: 10px;
+        right: 5px;
+        padding: 5px 8px;
+        font-size: 18px;  /* Ridotto */
+    }
+
     .map-switch {
         position: absolute;
         bottom: 10px;
@@ -177,4 +195,3 @@ input:checked + .slider:before {
         z-index: 9999;
     }
 }
-

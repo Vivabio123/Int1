@@ -161,7 +161,6 @@ input:checked + .slider:before {
     #map {
         width: 100%;
         height: 60vh; /* Riduci l'altezza della mappa per adattarsi a schermi più piccoli */
-        zoom: 1.5; /* Diminuisce il livello di zoom su mobile */
     }
 
     /* Ridurre lo zoom per la mappa su dispositivi mobili */
@@ -178,15 +177,15 @@ input:checked + .slider:before {
     }
 
     .filter-panel {
-        width: 130px; /* Ridotto da 180px a 130px per adattarsi meglio */
-        font-size: 12px; /* Diminuito la dimensione del testo */
+        width: 100px; /* Diminuita la larghezza del pannello */
+        font-size: 10px; /* Diminuito la dimensione del testo per adattarsi meglio */
     }
 
     /* Spostare la freccetta dei filtri sotto la barra di ricerca */
     .filter-arrow {
         position: fixed;
-        top: 100px; /* Posizionata sotto la barra di ricerca */
-        right: 10px;
+        top: 65px; /* Distanza dal top */
+        right: 0;
         background: rgba(0, 0, 0, 0.7);
         border: none;
         color: white;
@@ -200,14 +199,14 @@ input:checked + .slider:before {
     /* Barra di ricerca spostata a destra */
     .search-tool {
         position: fixed;
-        top: 10px;
-        right: 10px; /* Adattato per essere a destra */
+        top: 0px;
+        right: 0px;
         z-index: 9999;
-        width: auto;
+        width: auto; /* Adattare la larghezza per la versione mobile */
     }
 
     #search-input {
-        width: 150px; /* Ridotto la larghezza della barra di ricerca per mobile */
+        width: 200px; /* Diminuita la larghezza della barra di ricerca */
     }
 
     /* Ridurre il layout della barra di ricerca su dispositivi mobili */

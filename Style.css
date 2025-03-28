@@ -169,11 +169,11 @@ input:checked + .slider:before {
     }
 
     .filter-panel-container {
-        width: 100%;
+        width: 80%;
         position: relative;
         display: block;
-        max-width: 100%; /* Ottimizzare la larghezza del pannello dei filtri */
-        margin-top: 10px; /* Distanza dal top */
+        max-width: 80%; /* Ottimizzare la larghezza del pannello dei filtri */
+        margin-top: 25px; /* Distanza dal top */
     }
 
     .filter-panel {

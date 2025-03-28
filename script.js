@@ -1,32 +1,34 @@
-var map = L.map('map', {
-    minZoom: -2,
-    maxZoom: 4,
-    crs: L.CRS.Simple,
-    zoomAnimation: true,
-    zoomAnimationThreshold: 4
-});
-
 var w = 3840, h = 3840;
 var imageBounds = [[0, 0], [h, w]];
 
-if (window.innerWidth <= 768) {
-    map.setView([h / 2, w / 2], 0);  // Zoom più lontano 
-} else {
-    map.setView([h / 2, w / 2], 2);  // Zoom normale su desktop
-}
+// Inizializzazione della mappa con zoom in base alla larghezza della finestra
+var map = L.map('map', {
+    minZoom: -2,  // Permette di fare uno zoom molto lontano
+    maxZoom: 4,
+    crs: L.CRS.Simple,
+    zoomAnimation: true,
+    zoomAnimationThreshold: 4,
+    zoomSnap: 0.0001,
+    zoomDelta: 0.0001,
+    scrollWheelZoom: 'center',
+    center: [h / 2, w / 2],  // Centra la mappa
+    zoom: window.innerWidth <= 768 ? 0 : 3 // Imposta zoom 0 per mobile, 3 per desktop
+});
 
 // === 🔄 SWITCH TRA MAPPA NORMALE E MAPPA POLITICA ===
-var currentMap = 'normal';
 var normalMap = L.imageOverlay('Mappa DND1.jpg', imageBounds);
 var politicalMap = L.imageOverlay('Mappa DND2.jpg', imageBounds);
 
-normalMap.addTo(map); // Imposta la mappa normale come predefinita
+normalMap.addTo(map);  // Imposta la mappa normale come predefinita
 map.setMaxBounds(imageBounds);
 map.fitBounds(imageBounds);
 
-map.options.zoomSnap = 0.0001;
-map.options.zoomDelta = 0.0001;
-map.scrollWheelZoom = 'center';
+// Aggiusta il livello di zoom dopo il caricamento, in base alla larghezza della finestra
+if (window.innerWidth <= 768) {
+    map.setZoom(0);  // Zoom più lontano su dispositivi mobili
+} else {
+    map.setZoom(-1);  // Zoom più vicino su desktop
+}
 
 // Creazione di icone personalizzate per i marker
 var personaggioIcon = L.icon({
@@ -51,15 +53,15 @@ var cittaIcon = L.icon({
 });
 
 // Gruppi di marker
-var personaggi = L.layerGroup([
+var personaggi = L.layerGroup([ 
     L.marker([2017.3, 1612.9], { icon: personaggioIcon }).bindPopup("Storico Snitch")
 ]);
 
-var luoghiDiInteresse = L.layerGroup([
+var luoghiDiInteresse = L.layerGroup([ 
     L.marker([2044, 1734], { icon: luogoIcon }).bindPopup("Isola Verde")
 ]);
 
-var citta = L.layerGroup([
+var citta = L.layerGroup([ 
     L.marker([1979.15, 1631.7], { icon: cittaIcon }).bindPopup("Dravoria"),
     L.marker([2183.4, 1892.4], { icon: cittaIcon }).bindPopup("Eldratia")
 ]);
@@ -108,92 +110,6 @@ document.getElementById('search-input').addEventListener('keyup', function() {
             marker.openPopup();
         }
     });
-});
-
-// Pannello filtri
-var filterPanel = L.control({ position: 'topright' });
-filterPanel.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'filter-panel-container');
-    div.innerHTML = `
-        <button id="toggle-filter" class="filter-arrow">◀</button>
-        <div id="filter-content" class="filter-content" style="display: none;">
-            <h3 style="color: white;">Filtri</h3> <!-- Forza il colore bianco -->
-            <button id="select-all">Mostra Tutti</button>
-            <button id="deselect-all">Nascondi Tutti</button>
-            <table class="filter-table">
-                <tr>
-                    <td><label for="toggle-personaggi">Personaggi</label></td>
-                    <td><input type="checkbox" id="toggle-personaggi" checked></td>
-                </tr>
-                <tr>
-                    <td><label for="toggle-luoghi">Luoghi Sconosciuti</label></td>
-                    <td><input type="checkbox" id="toggle-luoghi" checked></td>
-                </tr>
-                <tr>
-                    <td><label for="toggle-citta">Città</label></td>
-                    <td><input type="checkbox" id="toggle-citta" checked></td>
-                </tr>
-            </table>
-        </div>
-    `;
-    
-    // Se dispositivo mobile, riduci le dimensioni del pannello filtri
-    if (window.innerWidth <= 768) {
-        div.classList.add('mobile-filter'); // Aggiunge una classe per ridurre la dimensione
-    }
-
-    return div;
-};
-filterPanel.addTo(map);
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Switch mappa
-    const toggle = document.getElementById('mapToggle');
-    if (toggle) {
-        toggle.addEventListener('change', function () {
-            if (this.checked) {
-                map.removeLayer(normalMap);
-                politicalMap.addTo(map);
-            } else {
-                map.removeLayer(politicalMap);
-                normalMap.addTo(map);
-            }
-        });
-    }
-
-    // Filtri
-    const toggleBtn = document.getElementById('toggle-filter');
-    const filterContent = document.getElementById('filter-content');
-
-    if (toggleBtn && filterContent) {
-        toggleBtn.addEventListener('click', function () {
-            if (filterContent.style.display === 'none') {
-                filterContent.style.display = 'block';
-                toggleBtn.textContent = '▶';
-            } else {
-                filterContent.style.display = 'none';
-                toggleBtn.textContent = '◀';
-            }
-        });
-    }
-
-    document.getElementById('select-all').addEventListener('click', function() {
-        document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(function(checkbox) {
-            checkbox.checked = true;
-        });
-        updateLayers();
-    });
-
-    document.getElementById('deselect-all').addEventListener('click', function() {
-        document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(function(checkbox) {
-            checkbox.checked = false;
-        });
-        updateLayers();
-    });
-
-    document.getElementById('toggle-personaggi').addEventListener('change', updateLayers);
-    document.getElementById('toggle-luoghi').addEventListener('change', updateLayers);
-    document.getElementById('toggle-citta').addEventListener('change', updateLayers);
 });
 
 // === Pannello dello switch mappa (in basso a sinistra) ===

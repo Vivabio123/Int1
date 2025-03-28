@@ -9,11 +9,11 @@ var map = L.map('map', {
 var w = 3840, h = 3840;
 var imageBounds = [[0, 0], [h, w]];
 
-// === Imposta lo zoom iniziale in base al dispositivo ===
-if (window.innerWidth <= 768) { // Dispositivi mobili
-    map.setView([2000, 1500], 2); // Zoom inferiore
+// Impostare lo zoom iniziale per il telefono
+if (window.innerWidth <= 768) {
+    map.setView([h / 2, w / 2], 0);  // Zoom più lontano su dispositivi mobili
 } else {
-    map.setView([2000, 1500], 3); // Zoom maggiore per desktop
+    map.setView([h / 2, w / 2], 2);  // Zoom normale su desktop
 }
 
 // === 🔄 SWITCH TRA MAPPA NORMALE E MAPPA POLITICA ===

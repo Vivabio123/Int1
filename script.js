@@ -111,7 +111,7 @@ filterPanel.onAdd = function (map) {
     div.innerHTML = `
         <button id="toggle-filter" class="filter-arrow">◀</button>
         <div id="filter-content" class="filter-content" style="display: none;">
-            <h3>Filtri</h3>
+            <h3 style="color: white;">Filtri</h3> <!-- Forza il colore bianco -->
             <button id="select-all">Mostra Tutti</button>
             <button id="deselect-all">Nascondi Tutti</button>
             <table class="filter-table">
@@ -130,6 +130,13 @@ filterPanel.onAdd = function (map) {
             </table>
         </div>
     `;
+
+    // Forza il colore del titolo "Filtri" a bianco tramite JavaScript
+    var filterTitle = div.querySelector('h3');
+    if (filterTitle) {
+        filterTitle.style.color = 'white'; // Modifica del colore
+    }
+
     return div;
 };
 filterPanel.addTo(map);

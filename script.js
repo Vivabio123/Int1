@@ -16,8 +16,8 @@ var map = L.map('map', {
 });
 
 // === 🔄 SWITCH TRA MAPPA NORMALE E MAPPA POLITICA ===
-var normalMap = L.imageOverlay('Mappa DND1.jpg', imageBounds);
-var politicalMap = L.imageOverlay('Mappa DND2.jpg', imageBounds);
+var normalMap = L.imageOverlay('Mappa DND2.jpg', imageBounds);
+var politicalMap = L.imageOverlay('Mappa DND1.jpg', imageBounds);
 
 normalMap.addTo(map);  // Imposta la mappa normale come predefinita
 map.setMaxBounds(imageBounds);
